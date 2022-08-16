@@ -1,0 +1,92 @@
+<doctype html>
+    {% extends 'layout.html' %}
+    {% block body %}
+     <center>
+        <div class="jumbotron">
+        <h1>{{rows[id-1]['product_name']}}</h1>
+        <hr>
+        
+            
+                <form method="post" action="/buy" id="calc_frm">
+                <dl>
+                <p>
+                <label>จำนวน:</label><br>
+                <input type="number" name="amount[]" value="1" class="btn btn-outline-dark" style="text-align: center;">
+                <br>
+                <br>
+                <label>ราคา:</label><br>
+                <input type="text" name="p[]" value="{{rows[id-1]['product_price']}}" class="btn btn-outline-dark" style="text-align: center;">
+                <br>
+                <br>
+                <label>ยอดรวม:</label><br>
+                <input type="text" name="price[]" class="btn btn-outline-dark" style="text-align: center;"></p>
+                </dl>
+                <p>
+                    <input name="inputID" value="{{session.user_name}}" type="text" class="btn btn-outline-dark" style="text-align: center;"
+                    placeholder="ID" autocomplete="off" required>
+                    <input name="inputProduct" value="{{rows[id-1]['product_id']}}" type="text" class="btn btn-outline-dark" style="text-align: center;"
+                    placeholder="ID" autocomplete="off" required>
+                </p>
+                <p>
+                    <input type="submit" value="ใส่ตะกร้า" class="btn btn-danger" method="post" action="/buy">
+                </p>
+            </form> 
+
+        
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        
+        </div>
+
+        <script>
+            /* ตัวเลขเท่านั้น */
+            var numberOnly = function (event) {
+                var key = event.which || event.keyCode;
+                if (!((key > 47 && key < 58) || key == 8 || key == 9 || key == 37 || key == 39)) {
+                    event.preventDefault();
+                }
+            };
+            /* ตัวเลขและจุดเท่านั้น */
+            var currencyOnly = function (event) {
+                var key = event.which || event.keyCode;
+                if (!((key > 47 && key < 58) || key == 8 || key == 9 || key == 37 || key == 39 || key == 46)) {
+                    event.preventDefault();
+                }
+            };
+            /* หาผลคูณ */
+            function calc(inps) {
+                var amount = parseFloat(inps[0].value);
+                amount = isNaN(amount) ? 0 : amount;
+                var p = parseFloat(inps[1].value);
+                p = isNaN(p) ? 0 : p;
+                inps[2].value = amount * p;
+            };
+            // form, p
+            var frm = document.getElementById('calc_frm'),
+                ps = frm.getElementsByTagName('p');
+            for (var i = 0; i < ps.length; i++) {
+                // อ่าน input ทีละแถว
+                var inps = ps[i].getElementsByTagName('input');
+                (function (inps) {
+                    // จำนวน ตัวเลขเท่านั้น
+                    inps[0].addEventListener('keypress', numberOnly);
+                    // ราคา ตัวเลขและจุด
+                    inps[1].addEventListener('keypress', currencyOnly);
+                    // จำนวน คำนวนราคา
+                    inps[0].addEventListener('keyup', function () {
+                        calc(inps);
+                    });
+                    // ราคา คำนวนราคา
+                    inps[1].addEventListener('keyup', function () {
+                        calc(inps);
+                    });
+                    // สั่งคำนวณในครั้งแรก
+                    calc(inps);
+                })(inps);
+            }
+        </script>
+
+    </center>
+
+     {% endblock %}
+    

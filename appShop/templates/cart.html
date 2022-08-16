@@ -1,0 +1,46 @@
+<doctype html>
+    {% extends 'layout.html' %}
+    {% block body %}
+     <center>
+        <!-- <h1>{{ rows[0]['product_name'] }}</h1>  -->
+        <div class="jumbotron">
+        <h1>CART</h1>
+            <table id="table_id" class="display">
+                <thead>
+                    <tr>
+                        <th>NO.</th>
+                        <th>MENU</th>
+                        <th>AMOUNT</th>
+                        <th>PRICE</th>
+                    </tr>
+                </thead>
+                {% for result in rows %}
+                <tbody>
+                    <tr>
+                        <td>{{result['cart_no']}}</td>
+                        <td>{{result['product_name']}}</td>
+                        <td>{{result['cart_amount']}}</td>
+                        <td>{{result['cart_price']}}</td>     
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        {% for result in rows %}
+        <form method="post" action="/cart">
+            <dl>
+            <p hidden>
+            <input name="cart" value="{{result['cart_id']}}" type="text" 
+                        placeholder="cart" autocomplete="off" required>
+            </p>
+            </dl>
+            
+        </form>
+        {% endfor %}
+        <p>
+            <input type="submit" value="ซื้อเลย" class="btn btn-danger">
+        </p>
+
+        </div>
+    </center>
+     {% endblock %}
+    

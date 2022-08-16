@@ -1,0 +1,22 @@
+<doctype html>
+  {% extends 'layout.html' %}
+  {% block body %}
+   <center>
+     <div class="jumbotron">
+           <div class="header">
+              <h1 class="word">Login</h1>
+           </div></br></br></br>
+          <h2 class="word">
+              <form action="{{ url_for('login') }}" method="post">
+                <div class="msg">{{ msg }}</div>
+                  <input id="user_name" name="user_name" type="text" placeholder="Enter Your Username" class="btn btn-outline-dark"/></br></br>
+                  <input id="user_password" name="user_password" type="password" placeholder="Enter Your Password" class="btn btn-outline-dark"/></br></br></br>
+                  <input type="submit" class="btn btn-dark" value="Sign In"></br></br>
+              </form>
+          </h2>
+          <p class="bottom">Dont't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
+     </div>
+    
+  </center>
+  {% endblock %}
+  

@@ -1,0 +1,36 @@
+<doctype html>
+    {% extends 'layout.html' %}
+    {% block body %}
+     <center>
+       <div class="jumbotron">
+
+        <h1>NSM CHICKEN RICE</h1>
+
+            <table id="table_id" class="display" >
+                <thead>
+                    <tr>
+                        <th>NO. </th>
+                        <th>MENU</th>
+                        <th>PRICE</th>
+                        <th>     </th>
+                        
+                    </tr>
+                </thead>
+                {% for result in rows %}
+                <tbody>
+                    <tr>
+                        <td>{{result['product_id']}}</td>
+                        <td>{{result['product_name']}}</td>
+                        <td>{{result['product_price']}}</td>
+                        <td> <a href="/buy/{{result['product_id']}}" class='btn btn-danger' >ซื้อ</a></td>
+                        
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        
+      
+    </center>
+     {% endblock %}
+    
